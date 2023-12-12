@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CreateController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeeController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('home', function () {
+        return view ('pages.app.dashboard', ['type_menu'=>'']);
+    })->name('home')->middleware('can:dashboard');
+    Route::resource('user', UserController::class);
+    Route::resource('companies', CompanyController::class);
+    Route::resource('employee', EmployeeController::class);
+    Route::resource('profile', ProfileController::class);
+});
+
+Route::get('/', function () {
+    return view ('pages.auth.auth-login');
+});
+
+
+
+// Route::get('/', function () {
+//     return view('pages.app.dashboard', ['type_menu' => '']);
+// });
+
+// Route::get('/login', function () {
+//     return view('pages.auth.auth-login');
+// })->name('login');
+
+// Route::get('/register', function () {
+//     return view('pages.auth.auth-register');
+// })->name('register');
+
+// Route::get('/forgot', function () {
+//     return view('pages.auth.auth-forgot');
+// })->name('forgot');
+
+// Route::get('/reset', function () {
+//     return view('pages.auth.auth-reset');
+// })->name('reset');
+
